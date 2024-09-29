@@ -2,6 +2,8 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix, precision_recall_fscore_support, accuracy_score
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 def load_data(file_path):
     encodings = ['utf-8', 'latin-1', 'iso-8859-1', 'utf-16']
@@ -61,3 +63,15 @@ print(f"Precision: {precision:.4f}")
 print(f"Recall: {recall:.4f}")
 print(f"F1-score: {f1:.4f}")
 print(f"Accuracy: {accuracy:.4f}")
+
+# Plot the confusion matrix
+confusion_matrix_values = np.array([[tn, fp], [fn, tp]])
+
+plt.figure(figsize=(6,5))
+sns.heatmap(confusion_matrix_values, annot=True, fmt='g', cmap='Blues', 
+            xticklabels=['Predicted Negative', 'Predicted Positive'], 
+            yticklabels=['Actual Negative', 'Actual Positive'])
+plt.title('Confusion Matrix')
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()
